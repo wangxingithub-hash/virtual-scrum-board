@@ -99,5 +99,11 @@ public class QueryBuilder {
     public static String filterTicketsQuery(int projectID, TicketStatus ticketStatus){
         return "SELECT * FROM project_tickets pt WHERE projectID = "+projectID+" AND EXISTS (SELECT 1 FROM tickets t WHERE t.ticketID = pt.ticketID AND t.ticketStatus = '"+ticketStatus.getValue()+"');";
     }
+
+    public static String getAllTasksByDeadLine(Date deadLine){
+        return "SELECT ticketTask FROM tickets WHERE deadLine = '" + deadLine + "';";
+    }
+    
+    
 }
 
