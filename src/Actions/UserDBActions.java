@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
+
 
 public class UserDBActions {
     private DBConnect dbConnect;
@@ -759,4 +761,35 @@ public class UserDBActions {
     public Connection getConnection(){
         return dbConnect.openConnection();
     }
+
+
+
+
+    public String[] getAllTasksByDeadLine(Date deadLine) {
+        Connection connection = dbConnect.openConnection();
+        if (connection != null) {
+            try {
+                String query = QueryBuilder.getAllTasksByDeadLine(deadLine);
+                ResultSet rs = dbConnect.select(query);
+                ArrayList<String> ticketTasks = new ArrayList<>();
+
+                while (rs.next()) {
+                    ticketTasks.add(rs.getString("ticketTask"));
+                }
+
+                rs.close();
+
+                return ticketTasks.toArray(new String[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            } finally {
+                dbConnect.closeConnection();
+            }
+        } else {
+            return null;
+        }
+    }
+
+    
 }
