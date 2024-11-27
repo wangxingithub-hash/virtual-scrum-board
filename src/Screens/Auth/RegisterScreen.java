@@ -175,6 +175,24 @@ public class RegisterScreen extends javax.swing.JFrame {
         userNameContainer.add(lastNameContainer);
 
 
+        // 添加用户角色下拉框
+        JPanel roleSelectionContainer = new JPanel();
+        roleSelectionContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
+        roleSelectionContainer.setPreferredSize(new Dimension(250, 48));
+        roleSelectionContainer.setBackground(Colors.transparent);
+
+        JLabel roleSelectionLabel = RegularText("User Role", 13);
+        String[] roles = {"normal", "admin"};
+        JComboBox<String> roleComboBox = new JComboBox<>(roles);
+        roleComboBox.setSelectedIndex(0);
+        roleComboBox.setPreferredSize(new Dimension(250, 28));
+
+        roleSelectionContainer.add(roleSelectionLabel);
+        roleSelectionContainer.add(roleComboBox);
+        rightCenterChild.add(roleSelectionContainer);
+
+
+
         JPanel userIDInputContainer = new JPanel();
         userIDInputContainer.setBackground(Colors.primaryBlack);
         userIDInputContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -217,6 +235,9 @@ public class RegisterScreen extends javax.swing.JFrame {
                 }
             }
         });
+
+
+
 
 
         JPanel userPasswordInputContainer = new JPanel();
@@ -279,7 +300,10 @@ public class RegisterScreen extends javax.swing.JFrame {
                         Messages.fullyCustomError("User ID is already taken");
                     }
                     else if(availability == AvailabilityType.AVAILABLE){
-                        AuthType registerRes = authObj.register(userIDObj.getText(), userPasswordObj.getText(), firstNameObj.getText(), lastNameObj.getText());
+                        // get user role
+                        String selectedRole = roleComboBox.getSelectedItem().toString();
+                        AuthType registerRes = authObj.register(userIDObj.getText(), userPasswordObj.getText(),
+                                firstNameObj.getText(), lastNameObj.getText(), selectedRole);
                         if (registerRes == AuthType.SUCCESS) {
                             Messages.fullyCustomMessage("Registration Successful. Logging in to your account...");
                             loggedUser = userIDObj.getText();
