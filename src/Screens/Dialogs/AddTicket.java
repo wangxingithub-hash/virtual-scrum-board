@@ -29,7 +29,7 @@ public class AddTicket extends javax.swing.JFrame {
         this.getContentPane().setBackground(Colors.primaryBlack);
         initComponents();
 
-        this.setSize(277, 300);
+        this.setSize(277, 242);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(0, 0));
 
@@ -37,7 +37,7 @@ public class AddTicket extends javax.swing.JFrame {
         dialogContent.setBackground(Colors.primaryBlack);
         dialogContent.setLayout(new BorderLayout(0, 0));
         dialogContent.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
-        dialogContent.setPreferredSize(new Dimension(277, 300));
+        dialogContent.setPreferredSize(new Dimension(277, 242));
 
         JPanel topBar = new JPanel();
         topBar.setBackground(Colors.primaryBlack);
@@ -55,7 +55,7 @@ public class AddTicket extends javax.swing.JFrame {
         JPanel dialogBody = new JPanel();
         dialogBody.setBackground(Colors.transparent);
         dialogBody.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 16));
-        dialogBody.setPreferredSize(new Dimension(245, 250));
+        dialogBody.setPreferredSize(new Dimension(245, 174));
 
         JPanel ticketNameInputContainer = new JPanel();
         ticketNameInputContainer.setBackground(Colors.transparent);
@@ -77,17 +77,6 @@ public class AddTicket extends javax.swing.JFrame {
         ticketDescInputContainer.add(ticketDescLabel);
         ticketDescInputContainer.add(ticketDescInput);
 
-        JPanel deadlineInputContainer = new JPanel();
-        deadlineInputContainer.setBackground(Colors.transparent);
-        deadlineInputContainer.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-        deadlineInputContainer.setPreferredSize(new Dimension(245, 48));
-        JLabel deadlineLabel = RegularText("Deadline (yyyy-mm-dd)", 13);
-        CustomTxtBx deadlineInputObj = new CustomTxtBx("\uf017", 245, 28, InputStatus.REGULAR, false, 128, false);
-        JPanel deadlineInput = deadlineInputObj.getElement();
-        deadlineInputContainer.add(deadlineLabel);
-        deadlineInputContainer.add(deadlineInput);
-        dialogBody.add(deadlineInputContainer);
-
         JPanel addBtn = createFlatButton("Add Ticket", Colors.primaryBlue, Colors.darkBlack, 14);
         addBtn.setPreferredSize(new Dimension(245, 28));
         addBtn.addMouseListener(new MouseAdapter() {
@@ -98,8 +87,7 @@ public class AddTicket extends javax.swing.JFrame {
                 }
                 else{
                     UserDBActions userDBActions = new UserDBActions();
-                    int result = userDBActions.addTicket(ticketNameInputObj.getText(), ticketDescInputObj.getText(),
-                            deadlineInputObj.getText());
+                    int result = userDBActions.addTicket(ticketNameInputObj.getText(), ticketDescInputObj.getText());
                     if(result>0){
                         int linkingResult = userDBActions.linkTicketToProject(projectID, result);
 
