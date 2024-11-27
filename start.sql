@@ -47,3 +47,10 @@ CREATE TABLE report (
                         stat VARCHAR(255) PRIMARY KEY,
                         value VARCHAR(255)
 );
+
+
+-- add user Role in Users table
+ALTER TABLE users
+ADD COLUMN userRole VARCHAR(50) DEFAULT 'normal';
+-- add deadLine in tickets table
+ALTER TABLE tickets MODIFY COLUMN deadLine VARCHAR(255);
