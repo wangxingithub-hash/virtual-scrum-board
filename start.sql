@@ -53,4 +53,4 @@ CREATE TABLE report (
 ALTER TABLE users
 ADD COLUMN userRole VARCHAR(50) DEFAULT 'normal';
 -- add deadLine in tickets table
-ALTER TABLE tickets MODIFY COLUMN deadLine VARCHAR(255);
+ALTER TABLE tickets MODIFY COLUMN deadLine DATE;
