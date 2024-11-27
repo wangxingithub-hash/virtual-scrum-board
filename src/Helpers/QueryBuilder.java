@@ -59,7 +59,7 @@ public class QueryBuilder {
         return "SELECT * FROM project_tickets WHERE projectID="+projectID+";";
     }
 
-    public static String addTicketQuery(String ticketTask, String ticketDescription, String deadLine) {
+    public static String addTicketQuery(String ticketTask, String ticketDescription, DATE deadLine) {
         return "INSERT INTO tickets(ticketTask, ticketStatus, ticketDescription, deadLine) " +
                 "VALUES ('" + ticketTask + "', 'ToDo', '" + ticketDescription + "', '" + deadLine + "');";
     }
