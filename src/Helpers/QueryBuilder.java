@@ -5,6 +5,7 @@ import Enums.TicketStatus;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import static Util.PassEncryptor.hashPassword;
+import java.util.Date;
 
 public class QueryBuilder {
     public static String loginQuery(String userID, String userPass){
@@ -59,7 +60,7 @@ public class QueryBuilder {
         return "SELECT * FROM project_tickets WHERE projectID="+projectID+";";
     }
 
-    public static String addTicketQuery(String ticketTask, String ticketDescription, DATE deadLine) {
+    public static String addTicketQuery(String ticketTask, String ticketDescription, Date deadLine) {
         return "INSERT INTO tickets(ticketTask, ticketStatus, ticketDescription, deadLine) " +
                 "VALUES ('" + ticketTask + "', 'ToDo', '" + ticketDescription + "', '" + deadLine + "');";
     }
