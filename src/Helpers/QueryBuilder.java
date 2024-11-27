@@ -14,9 +14,11 @@ public class QueryBuilder {
     public static String checkAvailabilityQuery(String userID){
         return "SELECT * FROM users WHERE userID='"+userID+"';";
     }
-    public static String registerQuery(String userID, String userPass, String userFirstName, String userLastName){
+    public static String registerQuery(String userID, String userPass, String userFirstName, String userLastName,
+                                       String userRole){
         String hashedPassword = hashPassword(userPass);
-        return "INSERT INTO users (userID, userPassword, userFirstName, userLastName) VALUES ('"+userID+"', '"+hashedPassword+"', '"+userFirstName+"', '"+userLastName+"');";
+        return "INSERT INTO users (userID, userPassword, userFirstName, userLastName, userRole) VALUES ('"+userID+"'," +
+                " '"+hashedPassword+"', '"+userFirstName+"', '"+userLastName+"', '"+ userRole +"');";
     }
     public static String getProjectsQuery(String userID){
         return "SELECT * FROM project_users WHERE userID='"+userID+"';";
@@ -56,9 +58,12 @@ public class QueryBuilder {
     public static String getTicketsQuery(int projectID){
         return "SELECT * FROM project_tickets WHERE projectID="+projectID+";";
     }
-    public static String addTicketQuery(String ticketTask, String ticketDescription){
-        return "INSERT INTO tickets(ticketTask, ticketStatus, ticketDescription) VALUES ('"+ticketTask+"', 'ToDo', '"+ticketDescription+"');";
+
+    public static String addTicketQuery(String ticketTask, String ticketDescription, String deadLine) {
+        return "INSERT INTO tickets(ticketTask, ticketStatus, ticketDescription, deadLine) " +
+                "VALUES ('" + ticketTask + "', 'ToDo', '" + ticketDescription + "', '" + deadLine + "');";
     }
+
     public static String linkTicketToProjectQuery(int projectID, int ticketID){
         return "INSERT INTO project_tickets(projectID, ticketID) VALUES ("+projectID+", "+ticketID+");";
     }
@@ -94,3 +99,4 @@ public class QueryBuilder {
         return "SELECT * FROM project_tickets pt WHERE projectID = "+projectID+" AND EXISTS (SELECT 1 FROM tickets t WHERE t.ticketID = pt.ticketID AND t.ticketStatus = '"+ticketStatus.getValue()+"');";
     }
 }
+
