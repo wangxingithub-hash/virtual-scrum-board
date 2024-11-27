@@ -246,6 +246,39 @@ public class UserDBActions {
             return null;
         }
     }
+
+
+    public String getUserRole(String userID){
+        Connection connection = dbConnect.openConnection();
+        if(connection!=null){
+            try{
+                String query = QueryBuilder.getUserDetailsQuery(userID);
+                ResultSet rs = dbConnect.select(query);
+                String userRole = null;
+                while (rs.next()) {
+                    userRole = rs.getString("userRole");
+                }
+                rs.close();
+                if(userRole.equals("admin")){
+                    return "0";
+                }
+                return "1";
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+            finally{
+                dbConnect.closeConnection();
+            }
+        }
+        else{
+            return null;
+        }
+    }
+
+
+
     public int insertProject(String projectName, String projectOwner, boolean projectSecurity, String projectPassword){
         Connection connection = dbConnect.openConnection();
         if(connection!=null){
@@ -389,11 +422,11 @@ public class UserDBActions {
             return null;
         }
     }
-    public int addTicket(String ticketTask, String ticketDescription){
+    public int addTicket(String ticketTask, String ticketDescription, String deadLine){
         Connection connection = dbConnect.openConnection();
         if(connection!=null){
             try{
-                String query = QueryBuilder.addTicketQuery(ticketTask, ticketDescription);
+                String query = QueryBuilder.addTicketQuery(ticketTask, ticketDescription, deadLine);
                 return dbConnect.insertAndGetGeneratedKey(query);
             }
             catch(Exception e){
