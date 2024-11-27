@@ -422,7 +422,7 @@ public class UserDBActions {
             return null;
         }
     }
-    public int addTicket(String ticketTask, String ticketDescription, String deadLine){
+    public int addTicket(String ticketTask, String ticketDescription, Date deadLine){
         Connection connection = dbConnect.openConnection();
         if(connection!=null){
             try{
