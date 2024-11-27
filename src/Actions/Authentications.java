@@ -67,11 +67,11 @@ public class Authentications{
         }
     }
 
-    public AuthType register(String id, String pass, String firstName, String lastName){
+    public AuthType register(String id, String pass, String firstName, String lastName, String role){
         Connection connection = dbConnect.openConnection();
         if(connection!=null){
             try{
-                String query = QueryBuilder.registerQuery(id, pass, firstName, lastName);
+                String query = QueryBuilder.registerQuery(id, pass, firstName, lastName, role);
                 int result = dbConnect.insert(query);
 
                 if(result>0){
